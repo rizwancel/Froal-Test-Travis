@@ -1,0 +1,10 @@
+FROM node:14.17.3
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2
+COPY --from=node / /
+
+COPY . /app
+WORKDIR /app/demo-core
+RUN npm install -g bower
+RUN bower --allow-root install
+EXPOSE 5002
+CMD ["dotnet","run"]

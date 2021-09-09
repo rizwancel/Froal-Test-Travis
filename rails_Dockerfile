@@ -1,0 +1,14 @@
+FROM ruby:latest
+
+WORKDIR /app
+#RUN apt-get update
+#RUN apt-get install -y --no-install-recommends nodejs yarn
+COPY . .
+
+#RUN cd rails-demo
+RUN bundle install
+#RUN bin/rails server
+
+EXPOSE 3000
+CMD ["/app/bin/rails", "server", "-b", "0.0.0.0"]
+

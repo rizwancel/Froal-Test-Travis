@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  meteor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '1516:3000'
+    restart: always
+    container_name: meteor-demo
+    environment:
+      - METEOR_NO_RELEASE_CHECK=true
+

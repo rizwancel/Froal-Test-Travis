@@ -1,0 +1,12 @@
+FROM ruby:2.7.2
+RUN apt-get update -y
+RUN apt-get install -y --no-install-recommends nodejs yarn
+COPY . /app
+WORKDIR /app
+#COPY Gemfile* ./
+RUN gem install bundler
+RUN bundle install
+
+EXPOSE 3000
+CMD ["rails", "server", "-b", "0.0.0.0"]
+

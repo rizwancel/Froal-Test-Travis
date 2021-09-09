@@ -1,0 +1,206 @@
+version: '3.7'
+services:
+  php:
+    build:
+      context: editor-php-sdk-example
+      dockerfile: php-editor_Dockerfile
+    ports:
+      - 1512:80
+    container_name: php-demo
+    restart: always
+  angular1:
+    build:
+      context: angular-froala-wysiwyg
+      dockerfile: angular-froala-wysiwyg_Dockerfile
+    ports:
+      - 1507:4200
+    container_name: angular-froala-wysiwyg
+    restart: always
+  angular2:
+    build:
+      context: angular-froala
+      dockerfile: angular-froala_Dockerfile
+    ports:
+      - 1506:80
+    container_name: angular-froala-demo
+    restart: always
+  aurelia:
+    build:
+      context: aurelia-test
+      dockerfile: aurelia-test_Dockerfile
+    ports:
+      - 1505:8080
+    container_name: aurelia-demo
+    restart: always
+  django:
+    build:
+      context: django/wysiwyg-editor-python-sdk/
+      dockerfile: django_Dockerfile
+    ports:
+      - 1509:8000
+    container_name: django-demo
+    restart: always
+  dotnet:
+    build:
+      context: wysiwyg-editor-dotnet-sdk
+      dockerfile: dotnet_Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 1504:5002
+    container_name: dotnet-demo
+    restart: always
+  ember:
+    build:
+      context: ember-froala-editor
+      dockerfile: ember_Dockerfile
+    ports:
+      - 1501:4200
+    container_name: ember-demo
+    restart: always
+  flask:
+    build:
+      context: flask/wysiwyg-editor-python-sdk
+      dockerfile: flask_Dockerfile
+    ports:
+      - 1503:5000
+    container_name: flask-demo
+    restart: always
+  knockout:
+    build:
+      context: knockout-froala
+      dockerfile: knockout_Dockerfile
+    ports:
+      - 1510:80
+    container_name: knockout-demo
+    restart: always
+  meteor:
+    build:
+      context: meteor
+      dockerfile: meteor_Dockerfile
+    ports:
+      - '1516:3000'
+    restart: always
+    container_name: meteor-demo
+    environment:
+      - METEOR_NO_RELEASE_CHECK=true
+  node:
+    build:
+      context: wysiwyg-editor-node-sdk
+      dockerfile: node_Dockerfile
+    ports:
+      - 1502:3000
+    container_name: node-demo
+    restart: always
+  rails:
+    build:
+      context: rails-demo
+      dockerfile: rails_Dockerfile
+    ports:
+      - '1515:3000'
+    restart: always
+    container_name: rails-demo
+  ruby:
+    build:
+      context: editor-ruby-sdk-example
+      dockerfile: ruby_Dockerfile
+    ports:
+      - 1511:3000
+    container_name: ruby-demo
+    restart: always
+  symfony:
+    build:
+      context: symfony-froala-demo
+      dockerfile: symfony_Dockerfile
+    ports:
+      - '1517:80'
+    restart: always
+    container_name: symfony-demo
+  vue:
+    build:
+      context: vue-froala-wysiwyg
+      dockerfile: vue_Dockerfile
+    ports:
+      - 1508:8080
+    container_name: vue-demo
+    restart: always
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: froala-db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+  wordpress:
+    depends_on:
+      - db
+    build:
+      context: wordpress-froala-wysiwyg
+      dockerfile: wordpress_Dockerfile
+    ports:
+      - "1513:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: admin
+      WORDPRESS_DB_PASSWORD: admin
+      WORDPRESS_DB_NAME: froala-db
+  yii:
+    build:
+      context: yii-demo
+      dockerfile: yii_Dockerfile
+    ports:
+      - '1514:80'
+    restart: always
+    container_name: yii-demo
+  react:
+    build:
+      context: react-froala-wysiwyg
+      dockerfile: react_Dockerfile
+    ports:
+      - 1518:4000
+    container_name: react-demo
+    restart: always
+  cake3:
+    build:
+      context: cakephp3-froala-demo
+      dockerfile: cake3_Dockerfile
+    ports:
+      - '1520:8765'
+    container_name: cake3-demo
+    restart: always
+  craft3:
+    build:
+      context: craft3
+      dockerfile: craft3_Dockerfile
+    ports:
+      - '1519:80'
+    container_name: "craft3-demo"
+    restart: always
+    environment:
+      ENVIRONMENT: dev
+      DB_SERVER: dbcraft
+      DB_USER: craft
+      DB_PASSWORD: craft
+      DB_DATABASE: craft
+      DB_PORT: 3344
+      XDEBUG_ON: "yes"
+      XDEBUG_HOST: "host.docker.internal"
+      XDEBUG_IDEKEY: "PHPSTORM"
+  dbcraft:
+    image: 'mysql:5.7'
+    restart: always
+    ports:
+      - '3344:3307'
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: craft
+      MYSQL_USER: craft
+      MYSQL_PASSWORD: craft
+      MYSQL_TCP_PORT: 3307
+
+volumes:
+  db_data:

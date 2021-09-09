@@ -1,0 +1,8 @@
+FROM wordpress:latest
+
+RUN mkdir /var/www/html/wp-content/plugins/froala
+
+COPY . /var/www/html/wp-content/plugins/froala
+
+EXPOSE 80
+

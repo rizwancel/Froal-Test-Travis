@@ -1,0 +1,23 @@
+diff --git a/build/webpack.base.conf.js b/build/webpack.base.conf.js
+index 698af4c..73ee2e4 100644
+--- a/build/webpack.base.conf.js
++++ b/build/webpack.base.conf.js
+@@ -34,10 +34,6 @@ module.exports = {
+         exclude: /node_modules/
+       },
+       {
+-        test: /\.json$/,
+-        loader: 'json-loader'
+-      },
+-      {
+         test: /\.html$/,
+         loader: 'vue-html-loader'
+       },
+@@ -66,4 +62,4 @@ module.exports = {
+   // vue: {
+   //   loaders: utils.cssLoaders()
+   // }
+-}
+\ No newline at end of file
++}
+

@@ -1,0 +1,39 @@
+diff --git a/demo-core/Program.cs b/demo-core/Program.cs
+index e625140..e3c2a0b 100644
+--- a/demo-core/Program.cs
++++ b/demo-core/Program.cs
+@@ -23,7 +23,7 @@ namespace demo
+                 .UseContentRoot(Directory.GetCurrentDirectory())
+                 .UseIISIntegration()
+                 .UseStartup<Startup>()
+-                .UseUrls("http://localhost:5002/")
++                .UseUrls("http://0.0.0.0:5002/")
+                 .Build();
+
+             host.Run();
+diff --git a/demo-core/Views/Home/Index.cshtml b/demo-core/Views/Home/Index.cshtml
+index 91c077d..cbb8e0a 100644
+--- a/demo-core/Views/Home/Index.cshtml
++++ b/demo-core/Views/Home/Index.cshtml
+@@ -5,7 +5,7 @@
+ <head>
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" />
+-    <script src="~/lib/jquery-1.11.0.min.js"></script>
++    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+     <!-- Include Font Awesome. -->
+     <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
+diff --git a/src/src.csproj b/src/src.csproj
+index 533fe62..ff1944b 100644
+--- a/src/src.csproj
++++ b/src/src.csproj
+@@ -10,7 +10,6 @@
+     <PackageId>src</PackageId>
+     <PackageTags>froala;wysiwyg;html;editor;rich;text;editor;image;upload</PackageTags>
+     <RepositoryUrl>https://github.com/froala/wysiwyg-editor-dotnet-sdk</RepositoryUrl>
+-    <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard2.0' ">$(PackageTargetFallback);dnxcore50;portable-net45+win7</PackageTargetFallback>
+     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard2.0' ">2.0.3</NetStandardImplicitPackageVersion>
+     <Version>3.0.0</Version>
+   </PropertyGroup>
+

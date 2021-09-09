@@ -1,0 +1,30 @@
+FROM php:7.4-apache
+WORKDIR /var/www/html/
+
+ENV APACHE_DOCUMENT_ROOT /var/www/html/web/
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+RUN apt-get update \
+    && apt-get install -y git zip unzip zlib1g-dev libzip-dev wget netstat-nat net-tools \
+    && apt-get -y autoremove \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN apt-get update && apt-get install -y libmagickwand-dev libicu-dev zlib1g-dev libicu-dev g++ --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
+RUN docker-php-ext-install zip \
+    && docker-php-ext-install pcntl \
+    && docker-php-ext-install bcmath \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl \
+    && docker-php-ext-install mysqli pdo pdo_mysql \
+    && docker-php-ext-enable pdo_mysql
+
+COPY . .
+RUN chmod -R 777 /var/www/html/web/
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+RUN composer install
+RUN a2enmod rewrite
+
